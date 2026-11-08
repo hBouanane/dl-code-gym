@@ -1,0 +1,15 @@
+# Exercise 04 - Security & ops: non-root USER and HEALTHCHECK  [web]
+# Write Dockerfile from memory below.
+#
+# Same app as 03, production-hardened:
+#   - create a user: RUN useradd --create-home --uid 1000 appuser   and switch to it with USER appuser
+#     (containers run as root by default; a compromised app would then be root inside the container)
+#   - copy files with --chown=appuser:appuser
+#   - HEALTHCHECK --interval=10s --timeout=3s --retries=3 CMD python -c
+#       "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+#     (slim images have no curl, so use Python)
+#   - add a LABEL org.opencontainers.image.title="gym-api"
+#
+# Stuck? Open Dockerfile.solution, read ONE line, close it.
+# How to check: see README.md in this folder.
+

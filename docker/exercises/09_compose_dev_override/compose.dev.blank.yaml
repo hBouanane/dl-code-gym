@@ -1,0 +1,14 @@
+# Exercise 09 - Dev workflow: compose override with bind mount + hot reload  [compose]
+# Write compose.dev.yaml from memory below.
+#
+# compose.yaml (given) is the production-like setup. Write compose.dev.yaml that OVERRIDES it for development:
+#   api:
+#     command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+#     volumes: - ./:/app        (bind mount your source code -> edits are visible instantly)
+#     environment: APP_ENV: dev
+# Compose merges files left to right: docker compose -f compose.yaml -f compose.dev.yaml up
+# Edit main.py while it runs -> uvicorn reloads, no rebuild needed.
+#
+# Stuck? Open compose.dev.solution.yaml, read ONE line, close it.
+# How to check: see README.md in this folder.
+

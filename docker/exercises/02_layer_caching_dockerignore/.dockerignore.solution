@@ -1,0 +1,10 @@
+# Exercise 02 - Layer caching + .dockerignore  [basics]
+# Solution for: .dockerignore
+
+__pycache__/
+*.pyc
+.venv/
+.git/
+.env
+*.log
+data/

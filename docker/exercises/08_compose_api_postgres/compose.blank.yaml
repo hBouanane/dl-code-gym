@@ -1,0 +1,17 @@
+# Exercise 08 - Docker Compose: API + Postgres with healthcheck, env, volume  [compose]
+# Write compose.yaml from memory below.
+#
+# Write compose.yaml with two services (the Dockerfile and app are given):
+#   db:  image postgres:16-alpine ; environment POSTGRES_USER=gym POSTGRES_PASSWORD=gym POSTGRES_DB=gym
+#        volume pgdata:/var/lib/postgresql/data
+#        healthcheck: test ["CMD-SHELL", "pg_isready -U gym -d gym"], interval 5s, timeout 3s, retries 10
+#   api: build: . ; ports "8000:8000"
+#        environment DATABASE_URL=postgresql+psycopg://gym:gym@db:5432/gym   <- host = SERVICE NAME "db"
+#        depends_on: db: condition: service_healthy   (wait until Postgres really accepts connections)
+#        restart: unless-stopped
+#   volumes: pgdata:
+# Services on the same compose project share a network and resolve each other by service name.
+#
+# Stuck? Open compose.solution.yaml, read ONE line, close it.
+# How to check: see README.md in this folder.
+

@@ -1,0 +1,7 @@
+# Exercise 01 - Your first Dockerfile: FROM, WORKDIR, COPY, CMD  [basics]
+# Solution for: Dockerfile
+
+FROM python:3.12-slim
+WORKDIR /app
+COPY hello.py .
+CMD ["python", "hello.py"]

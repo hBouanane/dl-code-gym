@@ -1,0 +1,16 @@
+# Exercise 12 - Dockerize the FastAPI reference project (Dockerfile + compose)  [project]
+# Write Dockerfile from memory below.
+#
+# Context: ../../../fastapi/reference_project (the hexagonal Library API).
+# Write, from memory, a Dockerfile for it that:
+#   - uses python:3.12-slim, the ENV trio (PYTHONDONTWRITEBYTECODE, PYTHONUNBUFFERED, PIP_NO_CACHE_DIR)
+#   - installs requirements.txt before copying the app/ package (cache)
+#   - does NOT copy tests/ (use the project's .dockerignore)
+#   - runs as a non-root user owning /data
+#   - sets LIB_DATABASE_URL=sqlite:////data/library.db (4 slashes = absolute path)
+#   - has a HEALTHCHECK on /health, EXPOSE 8000, CMD uvicorn app.main:app on 0.0.0.0
+# Then compare with ../../../fastapi/reference_project/Dockerfile and its compose.yaml.
+#
+# Stuck? Open Dockerfile.solution, read ONE line, close it.
+# How to check: see README.md in this folder.
+

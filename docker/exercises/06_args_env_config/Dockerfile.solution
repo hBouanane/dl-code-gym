@@ -1,0 +1,11 @@
+# Exercise 06 - Build-time ARG vs run-time ENV, env files  [config]
+# Solution for: Dockerfile
+
+FROM python:3.12-slim
+ARG APP_VERSION=dev
+ENV APP_VERSION=$APP_VERSION \
+    GREETING="hello" \
+    DEBUG="false"
+WORKDIR /app
+COPY config.py .
+CMD ["python", "config.py"]

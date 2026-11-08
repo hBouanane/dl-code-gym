@@ -1,0 +1,14 @@
+# Exercise 02 - Layer caching + .dockerignore  [basics]
+# Solution for: Dockerfile
+
+FROM python:3.12-slim
+WORKDIR /app
+
+# 1) dependencies: this layer is cached until requirements.txt changes
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 2) code: changes often, so it comes last
+COPY . .
+
+CMD ["python", "app.py"]

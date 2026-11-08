@@ -1,0 +1,17 @@
+# Exercise 10 - ML image: PyTorch CPU inference API (small image, model at startup)  [ml]
+# Write Dockerfile from memory below.
+#
+# serve.py is a FastAPI app that builds a small PyTorch model in its lifespan and serves /predict.
+# Dockerfile:
+#   - python:3.12-slim
+#   - install torch from the CPU-only wheel index (the default CUDA wheels are ~2.5 GB!):
+#       RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+#     then the rest: RUN pip install --no-cache-dir -r requirements.txt
+#     (separate layers: torch is huge and rarely changes -> cached)
+#   - copy serve.py, non-root user, EXPOSE 8000, CMD uvicorn serve:app ...
+#   - bonus: ENV OMP_NUM_THREADS=1 to keep CPU usage predictable when running many replicas
+# For a real model: COPY model.pt into the image, or mount it as a volume / download at startup.
+#
+# Stuck? Open Dockerfile.solution, read ONE line, close it.
+# How to check: see README.md in this folder.
+

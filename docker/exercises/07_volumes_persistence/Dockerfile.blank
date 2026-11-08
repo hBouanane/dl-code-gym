@@ -1,0 +1,13 @@
+# Exercise 07 - Volumes and bind mounts: data that survives the container  [storage]
+# Write Dockerfile from memory below.
+#
+# counter.py increments a number stored in /data/count.txt.
+# Dockerfile: python:3.12-slim, copy counter.py, declare VOLUME /data, CMD python counter.py
+# Then learn the 3 storage types (commands in the check section):
+#   - no volume       -> the count resets every run (container filesystem is thrown away with --rm)
+#   - named volume    -> docker run -v gym-counter:/data ...  -> 1, 2, 3 ...  (managed by Docker)
+#   - bind mount      -> docker run -v "$(pwd)/data:/data" ... -> the file appears in YOUR folder
+#
+# Stuck? Open Dockerfile.solution, read ONE line, close it.
+# How to check: see README.md in this folder.
+
