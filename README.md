@@ -100,3 +100,98 @@ Final project combining everything: a LangGraph agent using a fine-tuned HF mode
 - "Architecture Patterns with Python" (Percival & Gregory, free at cosmicpython.com): repository, unit of work, events
 - "Clean Architecture" (Robert C. Martin), and Alistair Cockburn's article on hexagonal architecture
 - Docker docs "Get started" + the Dockerfile best-practices page
+
+## How to work from now on (git workflow)
+
+Use two kinds of branches, so your own attempts never end up in the version you share:
+
+| Branch | Contents | Pushed? |
+|---|---|---|
+| `main` | clean exercises only: every `blank.py` empty, PROGRESS.md unticked | yes, this is what you share |
+| `practice` | `main` + your attempts and your ticks in PROGRESS.md | **never**, it stays on your machine |
+
+Set up your practice branch once, after cloning:
+
+```bash
+git switch -c practice
+```
+
+### 1. Practicing (on `practice`, local only)
+
+Commit after every session, with the exercise and the day in the message:
+
+```bash
+git switch practice
+git add pytorch/exercises/07_linear_regression_manual/blank.py PROGRESS.md
+git commit -m "practice(pytorch-07): day 2, stuck on torch.no_grad update"
+```
+
+To redo an exercise from scratch, restore its clean version from `main`:
+
+```bash
+git restore --source=main pytorch/exercises/07_linear_regression_manual/blank.py
+```
+
+Your earlier attempts stay in `git log` on `practice`, so you can compare day 1 with day 3:
+
+```bash
+git log --oneline -- pytorch/exercises/07_linear_regression_manual/blank.py
+```
+
+### 2. Improving the shared exercises (on `main`, through pull requests)
+
+Never edit exercises on `practice`. Start a short branch from `main` for each change:
+
+```bash
+git switch main
+git pull
+git switch -c fix/hf-09-accelerate-note
+```
+
+Make the change, commit, and push that branch:
+
+```bash
+git commit -am "fix(huggingface): explain accelerate install in exercise 09"
+git push -u origin fix/hf-09-accelerate-note
+```
+
+Open a pull request on GitHub and merge it. Then bring the change into your practice branch:
+
+```bash
+git switch main
+git pull
+git switch practice
+git merge main
+```
+
+Rules that keep the history readable:
+
+- one branch per topic, named `feat/...`, `fix/...` or `docs/...` (for example `feat/langgraph-14-tool-errors`)
+- small commits, each doing one thing, with messages in the form `type(area): what changed`,
+  for example `feat(fastapi): add exercise 20 websockets` or `docs: explain docker port conflicts`
+- never `git push --all`, and never `git push origin practice`
+
+### 3. Publishing for the first time
+
+Create an empty repository on GitHub, then:
+
+```bash
+git remote add origin https://github.com/<you>/dl-code-gym.git
+git push -u origin main
+```
+
+Push only `main`. Once it's on GitHub, turn on branch protection for `main`
+(Settings → Branches) so every change has to go through a pull request.
+
+### Optional: a guard that refuses to push `practice`
+
+Hooks are local, so each person adds this one themselves. Create the file `.git/hooks/pre-push`:
+
+```sh
+#!/bin/sh
+while read local_ref rest; do
+  case "$local_ref" in refs/heads/practice*) echo "practice stays local" >&2; exit 1;; esac
+done
+```
+
+Then make it executable (`chmod +x .git/hooks/pre-push`; Git for Windows runs it without that step).
