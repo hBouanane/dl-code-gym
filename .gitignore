@@ -1,0 +1,11 @@
+data/
+out_trainer/
+__pycache__/
+.pytest_cache/
+*.pt
+*.db
+my_model/
+darija_tok/
+.env
+.venv/
+venv/
