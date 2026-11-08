@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      LIB_APP_NAME: "Library API (docker)"
+    volumes:
+      - library-data:/data
+
+volumes:
+  library-data:
